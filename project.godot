@@ -843,7 +843,18 @@ _global_script_class_icons={
 [application]
 
 config/name="Sand-bottles"
+run/main_scene="res://scenes/menu/menu.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1080
+window/size/height=2400
+window/size/resizable=false
+window/size/test_width=270
+window/size/test_height=600
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
 
 [editor_plugins]
 
@@ -852,6 +863,10 @@ enabled=PoolStringArray( "res://addons/gdUnit3/plugin.cfg" )
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
 
 [physics]
 
