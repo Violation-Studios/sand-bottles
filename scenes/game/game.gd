@@ -7,7 +7,7 @@ var selected_bottles = []
 
 
 func _ready():
-	setup_board(4,4)
+	setup_board(6,4)
 
 
 func _process(_delta):
@@ -26,14 +26,14 @@ func create_bottle():
 
 
 func setup_board(rows: int, columns: int):
-	var column_width: int = 192
-	var row_height: int = 384
+	var column_width: int = get_viewport_rect().size.x / columns
+	var row_height: int = get_viewport_rect().size.y / rows
 	
 	for row in range(1, rows + 1):
 		for column in range(1, columns + 1):
 			var bottle = create_bottle()
-			bottle.position.x = column_width * column
-			bottle.position.y = row_height * row
+			bottle.position.x = column_width * column - (column_width / 2)
+			bottle.position.y = row_height * row - (row_height / 2)
 			
 			print(Vector2(row,column), " - ", bottle.position)
 
