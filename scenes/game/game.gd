@@ -3,6 +3,10 @@ extends Node2D
 var Bottle = preload("res://scenes/bottle/bottle.tscn")
 var Section = preload("res://scenes/bottle/section/section.tscn")
 
+var colors = [
+	Color("#0d2b45"), Color("#203c56"), Color("#544e68"), Color("#8d697a"),
+	Color("#d08159"), Color("#ffaa5e"), Color("#ffd4a3"), Color("#ffecd6"),
+]
 var bottles = []
 var selected_bottles = []
 
@@ -18,7 +22,7 @@ func _process(_delta):
 		bottle.rotation += 0.01
 
 
-func create_bottle(section_quantity: int, _color_quantity: int):
+func create_bottle(section_quantity: int, color_quantity: int):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var new_bottle = Bottle.instance()
@@ -28,14 +32,15 @@ func create_bottle(section_quantity: int, _color_quantity: int):
 	bottles.push_back(new_bottle)
 	
 	for section in section_quantity:
-		var red_value = rng.randf_range(0,1)
-		var green_value = rng.randf_range(0,1)
-		var blue_value = rng.randf_range(0,1)
+		var picked_color = rng.randi_range(0, color_quantity - 1)
 	
 		var new_section = Section.instance()
-		new_section.color = Color(red_value, green_value, blue_value, 1)
+		new_section.color = colors[picked_color]
 		new_bottle.sections.push_back(new_section)
 		new_bottle.add_child(new_section)
+		
+		new_section.scale.y /= section_quantity
+		
 		
 		print(new_section.color)
 	
@@ -48,7 +53,7 @@ func setup_board(rows: int, columns: int):
 	
 	for row in range(1, rows + 1):
 		for column in range(1, columns + 1):
-			var bottle = create_bottle(1,1)
+			var bottle = create_bottle(2,3)
 			bottle.position.x = column_width * column - (column_width / 2)
 			bottle.position.y = row_height * row - (row_height / 2)
 			
