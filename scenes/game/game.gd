@@ -19,15 +19,25 @@ func _process(_delta):
 
 
 func create_bottle(section_quantity: int, _color_quantity: int):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
 	var new_bottle = Bottle.instance()
+	
 	add_child(new_bottle)
 	new_bottle.connect("selected", self, "_on_Bottle_selected")
 	bottles.push_back(new_bottle)
 	
 	for section in section_quantity:
+		var red_value = rng.randf_range(0,1)
+		var green_value = rng.randf_range(0,1)
+		var blue_value = rng.randf_range(0,1)
+	
 		var new_section = Section.instance()
+		new_section.color = Color(red_value, green_value, blue_value, 1)
 		new_bottle.sections.push_back(new_section)
 		new_bottle.add_child(new_section)
+		
+		print(new_section.color)
 	
 	return new_bottle
 
