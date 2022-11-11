@@ -84,12 +84,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/Fuzzer.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "FuzzerTool",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/FuzzerTool.gd"
 }, {
-"base": "Reference",
+"base": "Resource",
 "class": "Fuzzers",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/Fuzzers.gd"
@@ -204,7 +204,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/asserts/GdUnitBoolAssertImpl.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitReportSummary",
 "class": "GdUnitByPathReport",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/report/GdUnitByPathReport.gd"
@@ -234,7 +234,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/event/GdUnitEvent.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "GdUnitExecutor",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/GdUnitExecutor.gd"
@@ -284,12 +284,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/report/GdUnitHtmlPatterns.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitReportSummary",
 "class": "GdUnitHtmlReport",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/report/GdUnitHtmlReport.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitEvent",
 "class": "GdUnitInit",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/event/GdUnitEventInit.gd"
@@ -379,7 +379,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/report/GdUnitReport.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitReportConsumer",
 "class": "GdUnitReportCollector",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/report/GdUnitReportCollector.gd"
@@ -469,7 +469,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/spy/GdUnitSpyImpl.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitEvent",
 "class": "GdUnitStop",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/event/GdUnitEventStop.gd"
@@ -489,7 +489,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/network/GdUnitTask.gd"
 }, {
-"base": "Reference",
+"base": "Node",
 "class": "GdUnitTcpClient",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/network/GdUnitTcpClient.gd"
@@ -504,7 +504,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/network/rpc/dtos/GdUnitTestCaseDto.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitReportSummary",
 "class": "GdUnitTestCaseReport",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/report/GdUnitTestCaseReport.gd"
@@ -529,7 +529,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/network/rpc/dtos/GdUnitTestSuiteDto.gd"
 }, {
-"base": "Reference",
+"base": "GdUnitReportSummary",
 "class": "GdUnitTestSuiteReport",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/report/GdUnitTestSuiteReport.gd"
@@ -589,7 +589,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/monitor/GodotGdErrorMonitor.gd"
 }, {
-"base": "Reference",
+"base": "Fuzzer",
 "class": "IntFuzzer",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/IntFuzzer.gd"
@@ -619,7 +619,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/network/rpc/RPCClientDisconnect.gd"
 }, {
-"base": "Reference",
+"base": "RPC",
 "class": "RPCData",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/network/rpc/RPCData.gd"
@@ -659,7 +659,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/core/event/SignalHandler.gd"
 }, {
-"base": "Reference",
+"base": "Fuzzer",
 "class": "StringFuzzer",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/StringFuzzer.gd"
@@ -674,12 +674,12 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/asserts/ValueProvider.gd"
 }, {
-"base": "Reference",
+"base": "Fuzzer",
 "class": "Vector2Fuzzer",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/Vector2Fuzzer.gd"
 }, {
-"base": "Reference",
+"base": "Fuzzer",
 "class": "Vector3Fuzzer",
 "language": "GDScript",
 "path": "res://addons/gdUnit3/src/fuzzers/Vector3Fuzzer.gd"
