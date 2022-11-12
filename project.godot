@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node2D",
+"class": "Bottle",
+"language": "GDScript",
+"path": "res://scenes/bottle/bottle.gd"
+} ]
+_global_script_class_icons={
+"Bottle": ""
+}
+
 [application]
 
 config/name="Sand-bottles"

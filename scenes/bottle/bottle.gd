@@ -1,4 +1,4 @@
-extends Node2D
+class_name Bottle extends Node2D
 
 var sections = []
 

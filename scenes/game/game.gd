@@ -8,7 +8,7 @@ var colors = [
 	Color("#d08159"), Color("#ffaa5e"), Color("#ffd4a3"), Color("#ffecd6"),
 ]
 var bottles = []
-var selected_bottles = []
+var selected_bottle: Bottle = null
 
 
 func _ready():
@@ -16,10 +16,7 @@ func _ready():
 
 
 func _process(_delta):
-	for bottle in selected_bottles:
-		if bottle.rotation >= TAU:
-			bottle.rotation = 0.0
-		bottle.rotation += 0.01
+	pass
 
 
 func create_bottle(section_quantity: int, color_quantity: int):
@@ -40,10 +37,7 @@ func create_bottle(section_quantity: int, color_quantity: int):
 		new_bottle.add_child(new_section)
 		
 		new_section.scale.y /= section_quantity
-		new_section.position.y -= (120 / float(section_quantity)) * (1 + (section * 2))
-		
-		
-		print(new_section.color)
+		new_section.position.y -= (120.0 / section_quantity) * (1 + (section * 2))
 	
 	return new_bottle
 
@@ -57,10 +51,18 @@ func setup_board(rows: int, columns: int):
 			var bottle = create_bottle(4,8)
 			bottle.position.x = column_width * column - (column_width / 2)
 			bottle.position.y = row_height * row - (row_height / 2)
-			
-			print(Vector2(row,column), " - ", bottle.position)
+
+
+func try_move_section(_from, _to):
+	pass
 
 
 func _on_Bottle_selected(bottle):
-		selected_bottles.push_back(bottle)
-		print(bottle.position)
+		if selected_bottle == null:
+			selected_bottle = bottle
+			selected_bottle.rotation = PI/8
+		elif selected_bottle == bottle:
+			selected_bottle.rotation = 0
+			selected_bottle = null
+		else:
+			try_move_section(selected_bottle, bottle)
