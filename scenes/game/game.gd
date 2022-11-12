@@ -9,17 +9,21 @@ var colors = [
 ]
 var bottles = []
 var selected_bottle: Bottle = null
+var section_quantity: int = 5
 
 
 func _ready():
-	setup_board(6,4)
+	setup_board(4,3)
+	for section in bottles[0].sections:
+		section.queue_free()
+	bottles[0].sections.clear()
 
 
 func _process(_delta):
 	pass
 
 
-func create_bottle(section_quantity: int, color_quantity: int):
+func create_bottle(color_quantity: int):
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	var new_bottle = Bottle.instance()
@@ -37,9 +41,13 @@ func create_bottle(section_quantity: int, color_quantity: int):
 		new_bottle.add_child(new_section)
 		
 		new_section.scale.y /= section_quantity
-		new_section.position.y -= (120.0 / section_quantity) * (1 + (section * 2))
+		position_section(new_section, section)
 	
 	return new_bottle
+
+
+func position_section(section, position):
+	section.position.y = (-120.0 / section_quantity) * (1 + (position * 2)) +120
 
 
 func setup_board(rows: int, columns: int):
@@ -48,13 +56,19 @@ func setup_board(rows: int, columns: int):
 	
 	for row in range(1, rows + 1):
 		for column in range(1, columns + 1):
-			var bottle = create_bottle(4,8)
+			var bottle = create_bottle(5)
 			bottle.position.x = column_width * column - (column_width / 2)
 			bottle.position.y = row_height * row - (row_height / 2)
 
 
-func try_move_section(_from, _to):
-	pass
+func try_move_section(from, to):
+	if from.sections.size() > 0 and to.sections.size() < section_quantity:
+		from.remove_child(from.sections.back())
+		to.add_child(from.sections.back())
+		
+		to.sections.push_back(from.sections.pop_back())
+		
+		position_section(to.sections.back(), to.sections.size() - 1)
 
 
 func _on_Bottle_selected(bottle):
