@@ -40,6 +40,7 @@ func create_bottle(section_quantity: int, color_quantity: int):
 		new_bottle.add_child(new_section)
 		
 		new_section.scale.y /= section_quantity
+		new_section.position.y -= (120 / float(section_quantity)) * (1 + (section * 2))
 		
 		
 		print(new_section.color)
@@ -53,7 +54,7 @@ func setup_board(rows: int, columns: int):
 	
 	for row in range(1, rows + 1):
 		for column in range(1, columns + 1):
-			var bottle = create_bottle(2,3)
+			var bottle = create_bottle(4,8)
 			bottle.position.x = column_width * column - (column_width / 2)
 			bottle.position.y = row_height * row - (row_height / 2)
 			

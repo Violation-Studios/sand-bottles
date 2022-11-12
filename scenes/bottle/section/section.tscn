@@ -1,6 +1,5 @@
 [gd_scene format=2]
 
 [node name="Section" type="Polygon2D"]
-position = Vector2( 3.8147e-06, -4 )
-scale = Vector2( 0.875, 0.96875 )
-polygon = PoolVector2Array( -64, -128, -64, 128, -4.35965e-06, 128, 64, 128, 64, -128 )
+position = Vector2( 0, 120 )
+polygon = PoolVector2Array( 56, -120, 56, 120, -56, 120, -56, -120 )
