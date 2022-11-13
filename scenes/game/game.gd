@@ -23,31 +23,41 @@ func _process(_delta):
 	pass
 
 
-func create_bottle(color_quantity: int):
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
+func create_bottle():
 	var new_bottle = Bottle.instance()
+	
+	fill_bottle(new_bottle, 5)
 	
 	add_child(new_bottle)
 	new_bottle.connect("selected", self, "_on_Bottle_selected")
 	bottles.push_back(new_bottle)
 	
-	for section in section_quantity:
-		var picked_color = rng.randi_range(0, color_quantity - 1)
-	
-		var new_section = Section.instance()
-		new_section.color = colors[picked_color]
-		new_bottle.sections.push_back(new_section)
-		new_bottle.add_child(new_section)
-		
-		new_section.scale.y /= section_quantity
-		position_section(new_section, section)
-	
 	return new_bottle
 
 
-func position_section(section, position):
-	section.position.y = (-120.0 / section_quantity) * (1 + (position * 2)) +120
+func fill_bottle(bottle: Bottle, color_quantity: int):
+	for section in section_quantity:
+		
+		var new_section = Section.instance()
+		
+		new_section.scale.y /= section_quantity
+		new_section.color = color_section(color_quantity)
+		new_section.position.y = position_section(section)
+		
+		bottle.sections.push_back(new_section)
+		bottle.add_child(new_section)
+
+
+func color_section(color_quantity: int):
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	var picked_color = rng.randi_range(0, color_quantity - 1)
+	return colors[picked_color]
+
+
+func position_section(position):
+	return (-120.0 / section_quantity) * (1 + (position * 2)) +120
 
 
 func setup_board(rows: int, columns: int):
@@ -56,19 +66,19 @@ func setup_board(rows: int, columns: int):
 	
 	for row in range(1, rows + 1):
 		for column in range(1, columns + 1):
-			var bottle = create_bottle(5)
+			var bottle = create_bottle()
 			bottle.position.x = column_width * column - (column_width / 2)
 			bottle.position.y = row_height * row - (row_height / 2)
 
 
-func try_move_section(from, to):
+func try_move_section(from: Bottle, to: Bottle):
 	if from.sections.size() > 0 and to.sections.size() < section_quantity:
 		from.remove_child(from.sections.back())
 		to.add_child(from.sections.back())
 		
 		to.sections.push_back(from.sections.pop_back())
 		
-		position_section(to.sections.back(), to.sections.size() - 1)
+		to.sections[-1].position.y = position_section(to.sections.size() - 1)
 
 
 func _on_Bottle_selected(bottle):
