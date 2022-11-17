@@ -18,7 +18,7 @@ const board_columns: int = 3
 func _ready():
 	var grid_list = create_grid_list(bottle_quantity, board_columns)
 	var bottle_list = create_bottle_list_from(grid_list)
-	var color_list = create_color_list(bottle_list.size(), bottle_fill_amount, color_quantity)
+	var color_list = create_color_list(bottle_list.size(), bottle_fill_amount)
 	var section_list = create_section_list(color_list)
 	var _filled_list = fill_bottles_from(section_list, bottle_list, bottle_fill_amount)
 
@@ -60,21 +60,16 @@ func create_section_list(color_list: Array):
 	return section_list
 
 
-func create_color_list(_bottle_quantity: int, fill_amount: int, total_colors: int):
+func create_color_list(_bottle_quantity: int, fill_amount: int):
 	var color_list = []
-	var colors_needed: int = _bottle_quantity * fill_amount
-	var rng = RandomNumberGenerator.new()
-	var color_slice = colors.slice(0,total_colors - 1,1)
+	var color_slice = colors.slice(0,fill_amount - 1,1)
 	
 	for i in color_quantity + 1:
 		color_list += color_slice
+		
+	randomize()
 	color_list.shuffle()
 	
-	for color in colors_needed:
-		rng.randomize()
-		var picked_color = colors[rng.randi_range(0, total_colors - 1)]
-		#color_list.push_back(picked_color)
-		
 	return color_list
 
 
