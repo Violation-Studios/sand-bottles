@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Bottle",
 "language": "GDScript",
 "path": "res://scenes/bottle/bottle.gd"
+}, {
+"base": "Node2D",
+"class": "Game",
+"language": "GDScript",
+"path": "res://scenes/game/game.gd"
 } ]
 _global_script_class_icons={
-"Bottle": ""
+"Bottle": "",
+"Game": ""
 }
 
 [application]
