@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/menu/playbutton.gd" type="Script" id=1]
 [ext_resource path="res://assets/Faustina-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/menu/LicensePopupPanel.gd" type="Script" id=3]
+[ext_resource path="res://scenes/menu/LicensesButton.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
@@ -17,14 +19,44 @@ anchor_bottom = 1.0
 theme = SubResource( 2 )
 
 [node name="PlayButton" type="Button" parent="."]
-margin_left = 315.0
-margin_top = 1014.0
-margin_right = 765.0
-margin_bottom = 1386.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -237.0
+margin_top = -133.0
+margin_right = 237.0
+margin_bottom = 133.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Play"
 script = ExtResource( 1 )
 
+[node name="LicensesButton" type="Button" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -237.0
+margin_top = -200.0
+margin_right = 237.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Licenses"
+script = ExtResource( 4 )
+
+[node name="LicensePopupPanel" type="PopupPanel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -405.0
+margin_top = -800.0
+margin_right = 405.0
+margin_bottom = 800.0
+script = ExtResource( 3 )
+
 [connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="LicensesButton" to="LicensePopupPanel" method="_on_LicensesButton_pressed"]
+[connection signal="visibility_changed" from="LicensePopupPanel" to="LicensesButton" method="_on_LicensePopupPanel_visibility_changed"]
