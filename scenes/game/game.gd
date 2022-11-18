@@ -4,8 +4,8 @@ const Bottle = preload("res://scenes/bottle/bottle.tscn")
 const Section = preload("res://scenes/bottle/section/section.tscn")
 
 var colors = [
-	Color("#0d2b45"), Color("#203c56"), Color("#544e68"), Color("#8d697a"),
-	Color("#d08159"), Color("#ffaa5e"), Color("#ffd4a3"), Color("#ffecd6"),
+	Color("#a08a79"), Color("#8b4442"), Color("#35212a"), Color("#9a6b52"),
+	Color("#f9e4af"), Color("#809e4f"), Color("#3b404a"), Color("#7aa1a4"),
 ]
 var selected_bottle: Bottle = null
 const bottle_quantity: int = 9
