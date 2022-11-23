@@ -15,3 +15,5 @@ data_*/
 *.exe
 android/
 *.x86_64
+
+.vscode/
