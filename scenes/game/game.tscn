@@ -1,6 +1,47 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://assets/reset.png" type="Texture" id=1]
 [ext_resource path="res://scenes/game/game.gd" type="Script" id=2]
+[ext_resource path="res://scenes/game/ResetButton.gd" type="Script" id=3]
+[ext_resource path="res://scenes/game/BackButton.gd" type="Script" id=4]
+[ext_resource path="res://assets/back.png" type="Texture" id=5]
+[ext_resource path="res://assets/sound.png" type="Texture" id=6]
+[ext_resource path="res://scenes/game/SoundButton.gd" type="Script" id=7]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 126.0
+
+[node name="BackButton" type="Button" parent="HBoxContainer"]
+margin_right = 132.0
+margin_bottom = 126.0
+icon = ExtResource( 5 )
+flat = true
+script = ExtResource( 4 )
+
+[node name="ResetButton" type="Button" parent="HBoxContainer"]
+margin_left = 136.0
+margin_right = 268.0
+margin_bottom = 126.0
+icon = ExtResource( 1 )
+flat = true
+icon_align = 1
+script = ExtResource( 3 )
+
+[node name="SoundButton" type="Button" parent="HBoxContainer"]
+margin_left = 272.0
+margin_right = 404.0
+margin_bottom = 126.0
+icon = ExtResource( 6 )
+flat = true
+script = ExtResource( 7 )
+
+[connection signal="pressed" from="HBoxContainer/BackButton" to="HBoxContainer/BackButton" method="_on_BackButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/ResetButton" to="HBoxContainer/ResetButton" method="_on_ResetButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/SoundButton" to="HBoxContainer/SoundButton" method="_on_SoundButton_pressed"]

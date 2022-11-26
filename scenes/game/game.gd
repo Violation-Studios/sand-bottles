@@ -1,4 +1,4 @@
-class_name Game extends Node2D
+class_name Game extends Control
 
 const Bottle = preload("res://scenes/bottle/bottle.tscn")
 const Section = preload("res://scenes/bottle/section/section.tscn")
