@@ -16,11 +16,12 @@ const board_columns: int = 3
 
 enum mode{
 	NORMAL,
-	ENDLESS,
+	ENDURANCE,
+	ZEN,
 	BOTTLEMINO,
 }
 
-var game_mode = mode.ENDLESS
+var game_mode = mode.NORMAL
 
 
 func _ready():
@@ -153,8 +154,13 @@ func try_move_section(from: Bottle, to: Bottle):
 			match game_mode:
 				mode.NORMAL:
 					to.get_node("Area2D/CollisionPolygon2D").disabled = true
-				mode.ENDLESS:
+				mode.ZEN:
 					var newbottle = create_single_bottle(bottle_capacity)
+					newbottle.scale = to.scale
+					newbottle.position = to.position
+					to.queue_free()
+				mode.ENDURANCE:
+					var newbottle = create_single_bottle(bottle_fill_amount)
 					newbottle.scale = to.scale
 					newbottle.position = to.position
 					to.queue_free()
