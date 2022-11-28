@@ -14,6 +14,14 @@ const bottle_capacity: int = 9
 const color_quantity:int = 8
 const board_columns: int = 3
 
+enum mode{
+	NORMAL,
+	ENDLESS,
+	BOTTLEMINO,
+}
+
+var game_mode = mode.ENDLESS
+
 
 func _ready():
 	var grid_list = create_grid_list(bottle_quantity, board_columns)
@@ -116,13 +124,39 @@ func create_grid_list(number_of_spaces, number_of_columns):
 
 
 func try_move_section(from: Bottle, to: Bottle):
-	if from.sections.size() > 0 and to.sections.size() < bottle_capacity:
+	var bottle_is_not_full: bool = to.sections.size() < bottle_capacity
+	var bottle_is_not_empty: bool = from.sections.size() > 0
+	
+	if bottle_is_not_full and bottle_is_not_empty:
 		from.remove_child(from.sections.back())
 		to.add_child(from.sections.back())
 		
 		to.sections.push_back(from.sections.pop_back())
-		
 		to.sections[-1].position.y = position_section_at(to.sections.size() - 1)
+		
+		bottle_is_not_full = to.sections.size() < bottle_capacity
+		if to.is_bottle_unmixed() and not bottle_is_not_full:
+			$ScoreLabel.text = String(int($ScoreLabel.text) + 1)
+			
+			match game_mode:
+				mode.NORMAL:
+					to.get_node("Area2D/CollisionPolygon2D").disabled = true
+				mode.ENDLESS:
+					var newbottle = create_single_bottle()
+					newbottle.scale = to.scale
+					newbottle.position = to.position
+					to.queue_free()
+				mode.BOTTLEMINO:
+					to.queue_free()
+
+
+func create_single_bottle():
+	var grid = create_grid_list(1,1)
+	var bottle = create_bottle_list_from(grid)
+	var color = create_color_list(bottle.size(), bottle_fill_amount)
+	var section = create_section_list(color)
+	var _filled = fill_bottles_from(section, bottle, bottle_fill_amount)
+	return _filled.front()
 
 
 func _on_Bottle_selected(bottle):
