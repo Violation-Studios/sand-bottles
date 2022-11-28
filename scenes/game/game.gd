@@ -72,12 +72,24 @@ func create_color_list(_bottle_quantity: int, fill_amount: int):
 	var color_list = []
 	var color_slice = colors.slice(0,fill_amount - 1,1)
 	
-	for i in color_quantity + 1:
+	for i in _bottle_quantity:
 		color_list += color_slice
 		
 	randomize()
 	color_list.shuffle()
 	
+	return color_list
+
+
+func create_random_color_list(fill_amount: int):
+	var color_list = []
+	var bag_of_colors = colors.slice(0,fill_amount - 1,1)
+	
+	for i in fill_amount:
+		randomize()
+		bag_of_colors.shuffle()
+		color_list.append(bag_of_colors.front())
+		
 	return color_list
 
 
@@ -142,7 +154,7 @@ func try_move_section(from: Bottle, to: Bottle):
 				mode.NORMAL:
 					to.get_node("Area2D/CollisionPolygon2D").disabled = true
 				mode.ENDLESS:
-					var newbottle = create_single_bottle()
+					var newbottle = create_single_bottle(bottle_capacity)
 					newbottle.scale = to.scale
 					newbottle.position = to.position
 					to.queue_free()
@@ -150,12 +162,12 @@ func try_move_section(from: Bottle, to: Bottle):
 					to.queue_free()
 
 
-func create_single_bottle():
+func create_single_bottle(_bottle_fill_amount: int):
 	var grid = create_grid_list(1,1)
 	var bottle = create_bottle_list_from(grid)
-	var color = create_color_list(bottle.size(), bottle_fill_amount)
+	var color = create_random_color_list(_bottle_fill_amount)
 	var section = create_section_list(color)
-	var _filled = fill_bottles_from(section, bottle, bottle_fill_amount)
+	var _filled = fill_bottles_from(section, bottle, _bottle_fill_amount)
 	return _filled.front()
 
 
