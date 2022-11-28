@@ -21,7 +21,7 @@ enum mode{
 	BOTTLEMINO,
 }
 
-var game_mode = mode.NORMAL
+
 
 
 func _ready():
@@ -151,7 +151,7 @@ func try_move_section(from: Bottle, to: Bottle):
 		if to.is_bottle_unmixed() and not bottle_is_not_full:
 			$ScoreLabel.text = String(int($ScoreLabel.text) + 1)
 			
-			match game_mode:
+			match AutoLoad.game_mode:
 				mode.NORMAL:
 					to.get_node("Area2D/CollisionPolygon2D").disabled = true
 				mode.ZEN:

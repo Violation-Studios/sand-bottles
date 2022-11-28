@@ -30,6 +30,10 @@ config/name="Sand-bottles"
 run/main_scene="res://scenes/menu/menu.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+AutoLoad="*res://assets/auto_load.gd"
+
 [display]
 
 window/size/width=1080

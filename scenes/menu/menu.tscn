@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/menu/playbutton.gd" type="Script" id=1]
 [ext_resource path="res://assets/Faustina-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/play.png" type="Texture" id=3]
+[ext_resource path="res://scenes/menu/ItemList.gd" type="Script" id=4]
 [ext_resource path="res://scenes/menu/menu.gd" type="Script" id=7]
 
 [sub_resource type="DynamicFont" id=1]
@@ -19,20 +20,33 @@ anchor_bottom = 1.0
 theme = SubResource( 2 )
 script = ExtResource( 7 )
 
-[node name="PlayButton" type="Button" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -66.0
-margin_top = -100.0
-margin_right = 66.0
-margin_bottom = 100.0
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+
+[node name="PlayButton" type="Button" parent="VBoxContainer"]
+margin_right = 1080.0
+margin_bottom = 1883.0
 rect_min_size = Vector2( 0, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 icon = ExtResource( 3 )
 flat = true
+icon_align = 1
 script = ExtResource( 1 )
 
-[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
+[node name="ItemList" type="ItemList" parent="VBoxContainer"]
+margin_top = 1887.0
+margin_right = 1080.0
+margin_bottom = 2400.0
+grow_horizontal = 2
+items = [ "normal", null, false, "endurance", null, false, "zen", null, false ]
+auto_height = true
+same_column_width = true
+fixed_column_width = 1080
+icon_mode = 0
+script = ExtResource( 4 )
+
+[connection signal="pressed" from="VBoxContainer/PlayButton" to="VBoxContainer/PlayButton" method="_on_PlayButton_pressed"]
+[connection signal="item_selected" from="VBoxContainer/ItemList" to="VBoxContainer/ItemList" method="_on_ItemList_item_selected"]
