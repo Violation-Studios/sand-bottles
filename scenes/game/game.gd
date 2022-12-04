@@ -2,187 +2,78 @@ class_name Game extends Control
 
 const Bottle = preload("res://scenes/bottle/bottle.tscn")
 const Section = preload("res://scenes/bottle/section/section.tscn")
+const Keg = preload("res://scenes/keg/keg.tscn")
 
-var colors = [
-	Color("#a08a79"), Color("#8b4442"), Color("#35212a"), Color("#9a6b52"),
-	Color("#f9e4af"), Color("#809e4f"), Color("#3b404a"), Color("#7aa1a4"),
-]
+var keg: Keg
+
 var selected_bottle: Bottle = null
-const bottle_quantity: int = 9
-const bottle_fill_amount: int = 8
-const bottle_capacity: int = 9
-const color_quantity:int = 8
-const board_columns: int = 3
+var game_mode
 
 enum mode{
 	NORMAL,
-	ENDURANCE,
 	ZEN,
 	BOTTLEMINO,
 }
 
+var bottle_list = []
 
+onready var space_width = get_viewport_rect().size.x / float(AutoLoad.board_columns)
+onready var space_height = get_viewport_rect().size.y / ceil(AutoLoad.bottle_quantity / float(AutoLoad.board_columns))
+onready var space_size = Vector2(space_width, space_height)
 
 
 func _ready():
-	var grid_list = create_grid_list(bottle_quantity, board_columns)
-	var bottle_list = create_bottle_list_from(grid_list)
-	var color_list = create_color_list(bottle_list.size(), bottle_fill_amount)
-	var section_list = create_section_list(color_list)
-	var _filled_list = fill_bottles_from(section_list, bottle_list, bottle_fill_amount)
-
-
-func fill_bottles_from(section_list: Array, bottle_list: Array, fill_amount: int):
-	var filled_list = []
+	game_mode = AutoLoad.game_mode
+	keg = Keg.instance()
+	add_child(keg)
 	
-	var fill_index = 1
-	var bottle_index = 0
-	var section_index = 0
-	while section_index < section_list.size():
-		if fill_index > fill_amount:
-			fill_index = 1
-			bottle_index += 1
-		
-		bottle_list[bottle_index].add_child(section_list[section_index])
-		bottle_list[bottle_index].sections.push_back(section_list[section_index])
-		
-		section_list[section_index].scale.y /= bottle_capacity
-		section_list[section_index].position.y = position_section_at(fill_index - 1)
-		
-		fill_index += 1
-		if fill_index > fill_amount:
-			filled_list.push_back(bottle_list[bottle_index])
-			
-		section_index += 1
-	
-	return filled_list
-
-
-func create_section_list(color_list: Array):
-	var section_list = []
-	
-	for color in color_list:
-		var new_section = Section.instance()
-		new_section.color = color
-		section_list.push_back(new_section)
-	
-	return section_list
-
-
-func create_color_list(_bottle_quantity: int, fill_amount: int):
-	var color_list = []
-	var color_slice = colors.slice(0,fill_amount - 1,1)
-	
-	for i in _bottle_quantity:
-		color_list += color_slice
-		
-	randomize()
-	color_list.shuffle()
-	
-	return color_list
-
-
-func create_random_color_list(fill_amount: int):
-	var color_list = []
-	var bag_of_colors = colors.slice(0,fill_amount - 1,1)
-	
-	for i in fill_amount:
-		randomize()
-		bag_of_colors.shuffle()
-		color_list.append(bag_of_colors.front())
-		
-	return color_list
-
-
-func position_section_at(location):
-	return (-120.0 / bottle_capacity) * (1 + (location * 2)) +120
-
-
-func create_bottle_list_from(list: Array):
-	var bottle_list = []
-	var space_width = get_viewport_rect().size.x / float(board_columns)
-	var space_height = get_viewport_rect().size.y / ceil(bottle_quantity / float(board_columns))
-	var space_size = Vector2(space_width, space_height)
-	var bottle_scale_multiplier = 1.0 / sqrt(sqrt(bottle_quantity) * board_columns)
-	
-	for location in list:
+	for bottle in AutoLoad.bottle_quantity:
 		var new_bottle = Bottle.instance()
-	
-		add_child(new_bottle)
-		new_bottle.scale *= bottle_scale_multiplier
-		new_bottle.position = space_size * location - (space_size / 2)
 		
-		new_bottle.connect("selected", self, "_on_Bottle_selected")
+		self.add_child(new_bottle)
 		bottle_list.push_back(new_bottle)
-	
-	return bottle_list
-
-
-func create_grid_list(number_of_spaces, number_of_columns):
-	var grid_list = []
-	
-	var row_index = 1
-	var column_index = 1
-	var spaces_to_generate = number_of_spaces
-	while spaces_to_generate > 0:
-		if column_index > number_of_columns:
-			column_index = 1
-			row_index += 1
+		new_bottle.position = space_size * grid_position(bottle_list.size(), AutoLoad.board_columns) - (space_size / 2)
 		
-		grid_list.push_back(Vector2(column_index, row_index))
-		spaces_to_generate -= 1
-		column_index += 1
+	match game_mode:
+		mode.NORMAL, mode.ZEN:
+			for bottle in bottle_list:
+				while keg.pour(bottle):
+					pass
+		mode.BOTTLEMINO:
+			$BottleminoTimer.start()
+
+
+func grid_position(position, row_length):
+	var column = fmod(position - 1, row_length) + 1
+	var row = floor((position - 1) / row_length) + 1
+	var coordinate: Vector2 = Vector2(column, row)
 	
-	return grid_list
+	return coordinate
 
 
-func try_move_section(from: Bottle, to: Bottle):
-	var bottle_is_not_full: bool = to.sections.size() < bottle_capacity
-	var bottle_is_not_empty: bool = from.sections.size() > 0
-	
-	if bottle_is_not_full and bottle_is_not_empty:
-		from.remove_child(from.sections.back())
-		to.add_child(from.sections.back())
-		
-		to.sections.push_back(from.sections.pop_back())
-		to.sections[-1].position.y = position_section_at(to.sections.size() - 1)
-		
-		bottle_is_not_full = to.sections.size() < bottle_capacity
-		if to.is_bottle_unmixed() and not bottle_is_not_full:
-			$ScoreLabel.text = String(int($ScoreLabel.text) + 1)
-			
-			match AutoLoad.game_mode:
-				mode.NORMAL:
-					to.get_node("Area2D/CollisionPolygon2D").disabled = true
-				mode.ZEN:
-					var newbottle = create_single_bottle(bottle_capacity)
-					newbottle.scale = to.scale
-					newbottle.position = to.position
-					to.queue_free()
-				mode.ENDURANCE:
-					var newbottle = create_single_bottle(bottle_fill_amount)
-					newbottle.scale = to.scale
-					newbottle.position = to.position
-					to.queue_free()
-				mode.BOTTLEMINO:
-					to.queue_free()
-
-
-func create_single_bottle(_bottle_fill_amount: int):
-	var grid = create_grid_list(1,1)
-	var bottle = create_bottle_list_from(grid)
-	var color = create_random_color_list(_bottle_fill_amount)
-	var section = create_section_list(color)
-	var _filled = fill_bottles_from(section, bottle, _bottle_fill_amount)
-	return _filled.front()
-
-
-func _on_Bottle_selected(bottle):
+func _on_Bottle_selected(bottle: Bottle):
 		if selected_bottle == null:
-			selected_bottle = bottle
-			selected_bottle.rotation = PI/8
+			selected_bottle = bottle.select()
 		elif selected_bottle == bottle:
-			selected_bottle.rotation = 0
-			selected_bottle = null
+			selected_bottle = bottle.deselect()
 		else:
-			try_move_section(selected_bottle, bottle)
+			selected_bottle.pour(bottle)
+
+
+func _on_Bottle_terminated(bottle: Bottle):
+	bottle_list.erase(bottle)
+	if bottle == selected_bottle:
+		selected_bottle = selected_bottle.deselect()
+		selected_bottle = null
+
+
+func _on_Bottle_completed(bottle: Bottle):
+	$ScoreLabel.text = String(int($ScoreLabel.text) + 1)
+	if game_mode == mode.ZEN:
+		while keg.pour(bottle):
+			pass
+
+
+func _on_BottleminoTimer_timeout():
+	for bottle in bottle_list:
+		keg.pour(bottle)

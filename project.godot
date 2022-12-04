@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "Polygon2D",
 "class": "Bottle",
 "language": "GDScript",
 "path": "res://scenes/bottle/bottle.gd"
@@ -18,10 +18,22 @@ _global_script_classes=[ {
 "class": "Game",
 "language": "GDScript",
 "path": "res://scenes/game/game.gd"
+}, {
+"base": "Node",
+"class": "Keg",
+"language": "GDScript",
+"path": "res://scenes/keg/keg.gd"
+}, {
+"base": "Polygon2D",
+"class": "Section",
+"language": "GDScript",
+"path": "res://scenes/bottle/section/section.gd"
 } ]
 _global_script_class_icons={
 "Bottle": "",
-"Game": ""
+"Game": "",
+"Keg": "",
+"Section": ""
 }
 
 [application]

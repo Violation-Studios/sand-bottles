@@ -5,17 +5,15 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 128 )
 
-[node name="Bottle" type="Node2D"]
+[node name="Bottle" type="Polygon2D"]
 scale = Vector2( 5, 5 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -64, -128, -64, 128, 64, 128, 64, -128, 56, -128, 56, 120, -56, 120, -56, -128 )
 script = ExtResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-color = Color( 0, 0, 0, 1 )
-polygon = PoolVector2Array( -64, -128, -64, 128, 64, 128, 64, -128, 56, -128, 56, 120, -56, 120, -56, -128 )
 
 [connection signal="input_event" from="Area2D" to="." method="_on_Area2D_input_event"]

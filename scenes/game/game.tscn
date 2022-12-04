@@ -62,6 +62,10 @@ text = "0"
 align = 1
 valign = 1
 
+[node name="BottleminoTimer" type="Timer" parent="."]
+wait_time = 15.0
+
 [connection signal="pressed" from="HBoxContainer/BackButton" to="HBoxContainer/BackButton" method="_on_BackButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/ResetButton" to="HBoxContainer/ResetButton" method="_on_ResetButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/SoundButton" to="HBoxContainer/SoundButton" method="_on_SoundButton_pressed"]
+[connection signal="timeout" from="BottleminoTimer" to="." method="_on_BottleminoTimer_timeout"]
