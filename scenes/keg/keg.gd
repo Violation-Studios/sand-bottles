@@ -19,7 +19,6 @@ func fill():
 	randomize()
 	color_list.shuffle()
 	
-	
 	for color in color_list:
 		var section = Section.instance()
 		
