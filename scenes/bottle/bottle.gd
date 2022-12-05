@@ -34,20 +34,17 @@ func _process(_delta):
 	if paused:
 		return
 
-	if full():
+	if full() and not mixed():
+		match AutoLoad.game_mode:
+			AutoLoad.mode.BOTTLEMINO, AutoLoad.mode.ZEN:
+				complete()
+			AutoLoad.mode.NORMAL:
+				terminate()
+				
+	elif full() and mixed():
 		match AutoLoad.game_mode:
 			AutoLoad.mode.BOTTLEMINO:
-				if mixed():
-					terminate()
-				elif not mixed():
-					complete()
-			AutoLoad.mode.NORMAL:
-				if not mixed():
-					terminate()
-			AutoLoad.mode.ZEN:
-				if not mixed():
-					complete()
-					pass
+				terminate()
 
 
 func terminate():
