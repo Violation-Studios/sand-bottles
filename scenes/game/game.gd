@@ -9,6 +9,8 @@ var keg: Keg
 var selected_bottle: Bottle = null
 var game_mode
 
+var turn_counter: int = 8
+
 enum mode{
 	NORMAL,
 	ZEN,
@@ -40,7 +42,9 @@ func _ready():
 				while keg.pour(bottle):
 					pass
 		mode.BOTTLEMINO:
-			$BottleminoTimer.start()
+			for bottle in bottle_list:
+				keg.pour(bottle)
+			#$BottleminoTimer.start()
 
 
 func grid_position(position, row_length):
@@ -57,7 +61,14 @@ func _on_Bottle_selected(bottle: Bottle):
 		elif selected_bottle == bottle:
 			selected_bottle = bottle.deselect()
 		else:
-			selected_bottle.pour(bottle)
+			if selected_bottle.pour(bottle):
+				if AutoLoad.game_mode == AutoLoad.mode.BOTTLEMINO:
+					if $TurnsLeftLabel.text == "0":
+						for bottle in bottle_list:
+							keg.pour(bottle)
+						$TurnsLeftLabel.text = "8"
+					else:
+						$TurnsLeftLabel.text = String(int($TurnsLeftLabel.text) - 1)
 
 
 func _on_Bottle_terminated(bottle: Bottle):
@@ -75,5 +86,6 @@ func _on_Bottle_completed(bottle: Bottle):
 
 
 func _on_BottleminoTimer_timeout():
-	for bottle in bottle_list:
-		keg.pour(bottle)
+	return
+#	for bottle in bottle_list:
+#		keg.pour(bottle)
