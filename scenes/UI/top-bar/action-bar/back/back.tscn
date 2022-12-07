@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/UI/top-bar/action-bar/back/backbutton.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/top-bar/action-bar/back/back.png" type="Texture" id=2]
+
+[node name="BackButton" type="Button"]
+margin_right = 132.0
+margin_bottom = 126.0
+icon = ExtResource( 2 )
+flat = true
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_Button_pressed"]

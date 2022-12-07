@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/menu/ItemList.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/Faustina-Regular.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 128
+font_data = ExtResource( 2 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="GameModeList" type="ItemList"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -513.0
+grow_horizontal = 2
+theme = SubResource( 2 )
+items = [ "NORMAL", null, false, "ZEN", null, false, "BOTTLEMINO", null, false ]
+auto_height = true
+same_column_width = true
+fixed_column_width = 1080
+icon_mode = 0
+script = ExtResource( 1 )
+
+[connection signal="item_selected" from="." to="." method="_on_ItemList_item_selected"]

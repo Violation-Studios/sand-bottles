@@ -4,8 +4,6 @@ var paused: bool = false
 
 var sections = []
 var capacity: int = AutoLoad.bottle_capacity
-var initial_level: int = AutoLoad.bottle_initial_level
-var fill_level: int
 
 signal selected(bottle)
 signal terminated(bottle)
@@ -13,11 +11,6 @@ signal completed(bottle)
 
 
 func _ready():
-	match AutoLoad.game_mode:
-		AutoLoad.mode.BOTTLEMINO:
-			fill_level = capacity
-		AutoLoad.mode.NORMAL, AutoLoad.mode.ZEN:
-			fill_level = initial_level
 	
 	var bottle_scale_multiplier = 1.0 / sqrt(sqrt(AutoLoad.bottle_quantity) * AutoLoad.board_columns)
 	
@@ -29,22 +22,6 @@ func _ready():
 	self.connect("terminated", get_parent(), "_on_Bottle_terminated")
 # warning-ignore:return_value_discarded
 	self.connect("completed", get_parent(), "_on_Bottle_completed")
-
-func _process(_delta):
-	if paused:
-		return
-
-	if full() and not mixed():
-		match AutoLoad.game_mode:
-			AutoLoad.mode.BOTTLEMINO, AutoLoad.mode.ZEN:
-				complete()
-			AutoLoad.mode.NORMAL:
-				terminate()
-				
-	elif full() and mixed():
-		match AutoLoad.game_mode:
-			AutoLoad.mode.BOTTLEMINO:
-				terminate()
 
 
 func terminate():
@@ -58,9 +35,13 @@ func complete():
 	emit_signal("completed", self)
 
 
+func volume():
+	return sections.size()
+
+
 func fill(section: Section):
 	var transfer_success: bool = false
-	var full: bool = sections.size() >= fill_level
+	var full: bool = sections.size() >= capacity
 
 	if not full:
 		self.add_child(section)
@@ -69,8 +50,6 @@ func fill(section: Section):
 		section.place(sections.size())
 		
 		transfer_success = true
-	elif full:
-		fill_level = capacity
 	
 	return transfer_success
 

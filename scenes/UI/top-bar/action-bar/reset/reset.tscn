@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/UI/top-bar/action-bar/reset/resetbutton.gd" type="Script" id=1]
+[ext_resource path="res://scenes/UI/top-bar/action-bar/reset/reset.png" type="Texture" id=2]
+
+[node name="ResetButton" type="Button"]
+margin_left = 136.0
+margin_right = 268.0
+margin_bottom = 126.0
+icon = ExtResource( 2 )
+flat = true
+icon_align = 1
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_Button_pressed"]

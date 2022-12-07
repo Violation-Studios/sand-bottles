@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sound-muted.png-ba3135126e414156d245165bfab0c310.stex"
+path="res://.import/back.png-74644d91323e265c7f8bf3d252cc6fa9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sound-muted.png"
-dest_files=[ "res://.import/sound-muted.png-ba3135126e414156d245165bfab0c310.stex" ]
+source_file="res://scenes/UI/top-bar/action-bar/back/back.png"
+dest_files=[ "res://.import/back.png-74644d91323e265c7f8bf3d252cc6fa9.stex" ]
 
 [params]
 

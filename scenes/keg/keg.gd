@@ -4,7 +4,6 @@ const Section = preload("res://scenes/bottle/section/section.tscn")
 
 var sections = []
 
-
 func _ready():
 	self.fill()
 
@@ -29,13 +28,13 @@ func pour(bottle: Bottle):
 	var transfer_success: bool = false
 	var section: Section
 	
+	if sections.empty():
+		self.fill()
 	if not sections.empty():
 		section = sections.back()
 		transfer_success = bottle.fill(section)
-	elif sections.empty():
-		self.fill()
 	
 	if transfer_success == true:
 		sections.erase(section)
-	
+		
 	return transfer_success

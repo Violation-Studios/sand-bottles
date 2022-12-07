@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/reset.png-1bba7b85e16148798ff597088bcf9318.stex"
+path="res://.import/play.png-dc749d54f30323cda7679db1bb144a5c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/reset.png"
-dest_files=[ "res://.import/reset.png-1bba7b85e16148798ff597088bcf9318.stex" ]
+source_file="res://scenes/menu/play-button/play.png"
+dest_files=[ "res://.import/play.png-dc749d54f30323cda7679db1bb144a5c.stex" ]
 
 [params]
 

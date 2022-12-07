@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/back.png-515119acda62477b1fef7f62900af1e0.stex"
+path="res://.import/sound.png-1c15c270ba2c67a47d762f3e01a9f7b1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/back.png"
-dest_files=[ "res://.import/back.png-515119acda62477b1fef7f62900af1e0.stex" ]
+source_file="res://scenes/UI/top-bar/action-bar/sound/sound.png"
+dest_files=[ "res://.import/sound.png-1c15c270ba2c67a47d762f3e01a9f7b1.stex" ]
 
 [params]
 

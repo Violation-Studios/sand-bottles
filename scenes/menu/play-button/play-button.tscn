@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/menu/play-button/play.png" type="Texture" id=1]
+[ext_resource path="res://scenes/menu/play-button/playbutton.gd" type="Script" id=2]
+
+[node name="PlayButton" type="Button"]
+margin_right = 1080.0
+margin_bottom = 1883.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+icon = ExtResource( 1 )
+flat = true
+icon_align = 1
+script = ExtResource( 2 )
+
+[connection signal="pressed" from="." to="." method="_on_PlayButton_pressed"]

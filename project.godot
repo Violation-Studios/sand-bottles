@@ -15,25 +15,37 @@ _global_script_classes=[ {
 "path": "res://scenes/bottle/bottle.gd"
 }, {
 "base": "Control",
-"class": "Game",
+"class": "Bottlemino",
 "language": "GDScript",
-"path": "res://scenes/game/game.gd"
+"path": "res://scenes/game-boards/bottlemino/bottlemino.gd"
 }, {
 "base": "Node",
 "class": "Keg",
 "language": "GDScript",
 "path": "res://scenes/keg/keg.gd"
 }, {
+"base": "Control",
+"class": "Normal",
+"language": "GDScript",
+"path": "res://scenes/game-boards/normal/normal.gd"
+}, {
 "base": "Polygon2D",
 "class": "Section",
 "language": "GDScript",
 "path": "res://scenes/bottle/section/section.gd"
+}, {
+"base": "Control",
+"class": "Zen",
+"language": "GDScript",
+"path": "res://scenes/game-boards/zen/zen.gd"
 } ]
 _global_script_class_icons={
 "Bottle": "",
-"Game": "",
+"Bottlemino": "",
 "Keg": "",
-"Section": ""
+"Normal": "",
+"Section": "",
+"Zen": ""
 }
 
 [application]
