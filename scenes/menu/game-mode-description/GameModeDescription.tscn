@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/fonts/Faustina-Regular.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://scenes/menu/game-mode-description/GameModeDescription.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 64
+use_filter = true
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[node name="GameModeDescription" type="PanelContainer"]
+anchor_right = 1.0
+margin_bottom = 46.0
+theme = SubResource( 2 )
+script = ExtResource( 4 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1073.0
+margin_bottom = 341.0
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+margin_right = 1066.0
+margin_bottom = 81.0
+text = "normal"
+align = 1
+valign = 1
+autowrap = true
+uppercase = true
+
+[node name="Description" type="Label" parent="VBoxContainer"]
+margin_top = 85.0
+margin_right = 1066.0
+margin_bottom = 334.0
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Move pieces from bottle to bottle to unmix the bottles. Unmix all the bottles to win."
+align = 1
+valign = 1
+autowrap = true
