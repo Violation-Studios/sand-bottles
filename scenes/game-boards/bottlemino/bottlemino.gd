@@ -73,3 +73,12 @@ func _on_Bottle_terminated(bottle: Bottle):
 func _on_Bottle_completed(_bottle: Bottle):
 	var score_label = get_node("/root/Game/TopBar/InfoBar/ScoreLabel")
 	score_label.text = String(int(score_label.text) + 1)
+
+
+func _on_PourButton_pressed():
+	var turn_label = get_node("/root/Game/TopBar/InfoBar/TurnsLeftLabel")
+	turn_label.text = "8"
+	for bottle in bottle_list:
+		if not keg.pour(bottle):
+			if bottle.mixed():
+				bottle.terminate()
