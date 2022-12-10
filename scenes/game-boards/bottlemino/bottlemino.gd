@@ -28,21 +28,20 @@ func _ready():
 		keg.pour(bottle)
 
 
-func _process(_delta):
-	for bottle in bottle_list:
-		if not bottle.paused:
-			if bottle.full():
-				if not bottle.mixed():
-					bottle.complete()
-				if bottle.mixed():
-					bottle.terminate()
-
 func grid_position(position, row_length):
 	var column = fmod(position - 1, row_length) + 1
 	var row = floor((position - 1) / row_length) + 1
 	var coordinate: Vector2 = Vector2(column, row)
 	
 	return coordinate
+
+
+func check_bottle_states():
+	for bottle in bottle_list:
+		if not bottle.paused:
+			if bottle.full():
+				if not bottle.mixed():
+					bottle.complete()
 
 
 func _on_Bottle_selected(bottle: Bottle):
@@ -52,10 +51,13 @@ func _on_Bottle_selected(bottle: Bottle):
 			selected_bottle = bottle.deselect()
 		else:
 			if selected_bottle.pour(bottle):
+				check_bottle_states()
 				var turn_label = get_node("/root/Game/TopBar/InfoBar/TurnsLeftLabel")
 				if turn_label.text == "0":
 					for bottle in bottle_list:
-						keg.pour(bottle)
+						if not keg.pour(bottle):
+							if bottle.mixed():
+								bottle.terminate()
 					turn_label.text = "8"
 				else:
 					turn_label.text = String(int(turn_label.text) - 1)
